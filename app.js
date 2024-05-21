@@ -8,6 +8,7 @@ const projectRoute = require('./src/routes/projectRoute');
 // Configurar acesso à BD.
 const mongoose = require('mongoose');
 let url = 'mongodb+srv://janaina:12345@fatec.r3iqzia.mongodb.net/?retryWrites=true&w=majority&appName=Fatec';
+//let url = 'mongodb://127.0.0.1:27017/fatec'
 let mongoDB = process.env.MONGODB_URI || url;
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
@@ -18,9 +19,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(userRoute)
 app.use(projectRoute)
-
-
-
 
   app.listen(3000, () => {
     console.log('Servidor em execução na porta 3000');
