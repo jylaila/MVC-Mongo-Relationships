@@ -1,9 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('./swagger-output.json');
 
-const userRoute = require('./src/routes/userRoute'); 
-const projectRoute = require('./src/routes/projectRoute'); 
+const userRoute = require('./src/routes/userRoute');
+const projectRoute = require('./src/routes/projectRoute');
 
 // Configurar acesso à BD.
 const mongoose = require('mongoose');
@@ -16,10 +18,12 @@ let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Erro ao conectar ao MongoDB'));
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(userRoute)
 app.use(projectRoute)
 
-  app.listen(3000, () => {
-    console.log('Servidor em execução na porta 3000');
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
+app.listen(3000, () => {
+  console.log('Servidor em execução na porta 3000');
 });

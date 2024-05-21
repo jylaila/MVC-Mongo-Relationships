@@ -1,6 +1,15 @@
 var User = require('../models/userModel');
 
 exports.getUser = async function (req, res) {
+/*
+            #swagger.tags = ['Users']
+            #swagger.summary = 'Get users'
+            #swagger.description = 'This endpoint will get all users'
+
+            #swagger.security = [{
+                "bearerAuth": []
+            }] 
+        */
     try {
         const result = await User.find();
         res.status(200).json(result)
